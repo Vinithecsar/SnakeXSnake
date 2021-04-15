@@ -580,5 +580,3 @@ while True:
    screen.blit(fonte.render('Score: {}'.format(pontuacao_2), True, (255,255,0)), (520 ,20))
  
    pygame.display.update()
-
-# link da música: https://www.youtube.com/watch?v=6pblYe_f4Y8

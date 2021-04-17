@@ -271,6 +271,7 @@ while True:
 
           snake_1 = [(200,150),(210,150),(220,150)]
           pontuacao_1 = 0
+          fruit_pos = grid_random()
           direcao_1 = ESQUERDA
           pygame.mixer.Sound.play(musica)
           reiniciar = True
@@ -316,6 +317,7 @@ while True:
 
           snake_1 = [(200,150),(210,150),(220,150)]
           pontuacao_1 = 0
+          fruit_pos = grid_random()
           direcao_1 = ESQUERDA
           pygame.mixer.Sound.play(musica)
           reiniciar = True
@@ -523,6 +525,7 @@ while True:
           pontuacao_2 = 0
           direcao_1 = ESQUERDA
           direcao_2 = DIREITA
+          fruit_pos = grid_random()
  
           pygame.mixer.Sound.play(musica)
          
@@ -578,6 +581,7 @@ while True:
           pontuacao_2 = 0
           direcao_1 = ESQUERDA
           direcao_2 = DIREITA
+          fruit_pos = grid_random()
  
           pygame.mixer.Sound.play(musica)
          
@@ -632,6 +636,7 @@ while True:
           pontuacao_2 = 0
           direcao_1 = ESQUERDA
           direcao_2 = DIREITA
+          fruit_pos = grid_random()
  
           pygame.mixer.Sound.play(musica)
          

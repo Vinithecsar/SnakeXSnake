@@ -6,6 +6,7 @@ DIREITA = 1
 BAIXO = 2
 ESQUERDA = 3
 
+
 um_jogador = False
 dois_jogadores =  False
 
@@ -80,7 +81,11 @@ relogio = pygame.time.Clock()
 menu = pygame.image.load('menu1.png')
 tutorialjg1 = pygame.image.load('jogador1tutorial.png')
 tutorialjg2 = pygame.image.load('jogador2tutorial.png')
-game_over = pygame.image.load('Tela do game over.png')
+regras1 = pygame.image.load('regras1.png')
+regras2 = pygame.image.load('regras2.png')
+pause = pygame.image.load
+game_over = pygame.image.load('game_over.png')
+pausado = pygame.image.load('tela pausado.png')
 logoif = pygame.image.load('logo_ifrn.png')
 
 som_1 = pygame.mixer.Sound('pontos.wav')
@@ -144,8 +149,38 @@ while True:
  
    pygame.display.update()
  
-  pygame.mixer.Sound.play(musica)
+  
+
+# tutorial das regras
+
+  tutorial2 = False
+  while not tutorial2:
  
+   screen.blit(regras1,(0,0))
+   screen.blit(logoif, (10,420))
+ 
+   for event in pygame.event.get():
+ 
+     if event.type == QUIT:
+       pygame.quit()
+ 
+     if event.type == KEYDOWN:
+       if event.key == K_RETURN:
+ 
+         tutorial2 = True
+ 
+       if event.key == K_ESCAPE:
+         pygame.quit()
+ 
+   pygame.display.update()
+ 
+  pygame.mixer.Sound.play(musica)
+
+  PAUSADO = 4
+  RODANDO = 5
+
+  jogo = RODANDO
+
   fim_de_jogo = False
 
   while not fim_de_jogo:
@@ -160,8 +195,12 @@ while True:
 
        if event.key == K_ESCAPE:
          pygame.quit()
+
  
     # controlar direção da cobra
+
+
+
      if event.type == KEYDOWN:
  
        if direcao_1 == CIMA or direcao_1 == BAIXO:
@@ -170,13 +209,30 @@ while True:
  
          if event.key == K_d:
            direcao_1 = DIREITA
+           
+
+       if event.key == K_SPACE:
+
+           if jogo != PAUSADO:  
+            jogo = PAUSADO
+            pygame.mixer.pause()
+            screen.blit(pausado, (90,50))
+           else:
+             jogo = RODANDO
+             pygame.mixer.unpause()
+
  
        if direcao_1 == ESQUERDA or direcao_1 == DIREITA:
          if event.key == K_w:
            direcao_1 = CIMA
- 
+
          if event.key == K_s:
            direcao_1 = BAIXO
+
+    if jogo == PAUSADO:
+     pygame.display.flip()
+
+     continue
 
     # Se a cobra come a fruta
     if colisao(snake_1[0], fruit_pos):
@@ -193,7 +249,7 @@ while True:
     # movimentar a posição da cobra
     movimento(snake_1, direcao_1)
 
-    # Se a cobra bate na parede
+    # Se a cobra bate na parede, o jogo fecha
     if snake_1[0][0] > 600 or snake_1[0][0] < 0 or snake_1[0][1] > 450 or snake_1[0][1] < 0:
  
      pygame.mixer.Sound.stop(musica)
@@ -230,7 +286,7 @@ while True:
            um_jogador = False
            
           
-       screen.blit(fonte.render('Final score: {}'.format(pontuacao_1), True, (255, 255, 0)), (230, 320))
+       screen.blit(fonte.render('Final score: {}'.format(pontuacao_1), True, (0, 200, 0)), (230, 320))
        screen.blit(fonte.render('Pressione Enter para jogar novamente', True, (173,255,47)), (120, 360))
        screen.blit(fonte.render('Pressione Esc para fechar o jogo',True, (255,100,100)), (145,410))
        screen.blit(fonte.render('Pressione espaço para voltar ao menu principal', True, (255,255,255)), (90, 385))
@@ -274,7 +330,7 @@ while True:
            running = False
            um_jogador = False
 
-       screen.blit(fonte.render('Final score: {}'.format(pontuacao_1), True, (255, 255, 0)), (230, 320))
+       screen.blit(fonte.render('Final score: {}'.format(pontuacao_1), True, (0, 200, 0)), (230, 320))
        screen.blit(fonte.render('Pressione Enter para jogar novamente', True, (173,255,47)), (120, 360))
        screen.blit(fonte.render('Pressione Esc para fechar o jogo',True, (255,100,100)), (145,410))
        screen.blit(fonte.render('Pressione espaço para voltar ao menu principal', True, (255,255,255)), (90, 385))
@@ -321,8 +377,38 @@ while True:
  
    pygame.display.update()
  
-  pygame.mixer.Sound.play(musica)
+  
+
+# tutorial das regras
+
+  tutorial2 = False
+  while not tutorial2:
  
+   screen.blit(regras2,(0,0))
+   screen.blit(logoif, (10,420))
+ 
+   for event in pygame.event.get():
+ 
+     if event.type == QUIT:
+       pygame.quit()
+ 
+     if event.type == KEYDOWN:
+       if event.key == K_RETURN:
+ 
+         tutorial2 = True
+ 
+       if event.key == K_ESCAPE:
+         pygame.quit()
+ 
+   pygame.display.update()
+
+  pygame.mixer.Sound.play(musica)
+
+  PAUSADO = 4
+  RODANDO = 5
+
+  jogo = RODANDO
+
   fim_de_jogo = False
   while not fim_de_jogo:
  
@@ -333,13 +419,22 @@ while True:
      # fechar o jogo
      if event.type == QUIT:
        pygame.quit()
- 
+
+   # controlar direção da cobra
      if event.type == KEYDOWN:
+
        if event.key == K_ESCAPE:
          pygame.quit()
- 
-  # controlar direção da cobra
-     if event.type == KEYDOWN:
+
+       if event.key == K_SPACE:           
+          if jogo != PAUSADO:
+           jogo = PAUSADO
+           screen.blit(pausado, (90,50))
+           pygame.mixer.pause()
+
+          else:
+            jogo = RODANDO
+            pygame.mixer.unpause()
  
        if direcao_1 == CIMA or direcao_1 == BAIXO:
          if event.key == K_a:
@@ -367,7 +462,13 @@ while True:
            direcao_2 = CIMA
  
          if event.key == K_DOWN:
-           direcao_2 = BAIXO 
+           direcao_2 = BAIXO
+
+   if jogo == PAUSADO: 
+    pygame.display.flip()
+
+    continue
+ 
  
   # Se a cobra come a fruta
    if colisao(snake_1[0], fruit_pos):
@@ -395,7 +496,7 @@ while True:
    movimento(snake_1, direcao_1)
    movimento(snake_2, direcao_2)
 
-   # Se a cobra bate na parede
+   # Se a cobra bate na parede, o jogo fecha
    if snake_1[0][0] > 600 or snake_1[0][0] < 0 or snake_1[0][1] > 450 or snake_1[0][1] < 0 or snake_2[0][0] > 600 or snake_2[0][0] < 0 or snake_2[0][1] > 450 or snake_2[0][1] < 0:
  
       pygame.mixer.Sound.stop(musica)
@@ -443,7 +544,7 @@ while True:
          
  
        screen.blit(fonte.render('Final score: {}'.format(pontuacao_1), True, (0, 200, 0)), (125, 325))
-       screen.blit(fonte.render('Final score: {}'.format(pontuacao_2), True, (200,200,0)), (320, 325))
+       screen.blit(fonte.render('Final score: {}'.format(pontuacao_2), True, (255,255,0)), (320, 325))
        screen.blit(fonte.render('Pressione Enter para jogar novamente', True, (173,255,47)), (120, 360))
        screen.blit(fonte.render('Pressione Esc para fechar o jogo',True, (255,100,100)), (145,410))
        screen.blit(fonte.render('Pressione espaço para voltar ao menu principal', True, (255,255,255)), (90, 385))
@@ -497,7 +598,7 @@ while True:
           dois_jogadores = False
 
        screen.blit(fonte.render('Final score: {}'.format(pontuacao_1), True, (0, 200, 0)), (125, 325))
-       screen.blit(fonte.render('Final score: {}'.format(pontuacao_2), True, (200,200,0)), (320, 325))
+       screen.blit(fonte.render('Final score: {}'.format(pontuacao_2), True, (255,255,0)), (320, 325))
        screen.blit(fonte.render('Pressione Enter para jogar novamente', True, (173,255,47)), (120, 360))
        screen.blit(fonte.render('Pressione Esc para fechar o jogo',True, (255,100,100)), (145,410))
        screen.blit(fonte.render('Pressione espaço para voltar ao menu principal', True, (255,255,255)), (90, 385))
@@ -552,7 +653,7 @@ while True:
  
  
        screen.blit(fonte.render('Final score: {}'.format(pontuacao_1), True, (0, 200, 0)), (125, 325))
-       screen.blit(fonte.render('Final score: {}'.format(pontuacao_2), True, (200,200,0)), (320, 325))
+       screen.blit(fonte.render('Final score: {}'.format(pontuacao_2), True, (255,255,0)), (320, 325))
        screen.blit(fonte.render('Pressione Enter para jogar novamente', True, (173,255,47)), (120, 360))
        screen.blit(fonte.render('Pressione Esc para fechar o jogo',True, (255,100,100)), (145,410))
        screen.blit(fonte.render('Pressione espaço para voltar ao menu principal', True, (255,255,255)), (90, 385))
